@@ -1,12 +1,13 @@
 {
   "name": "ut-po-loader",
-  "version": "1.0.0",
+  "version": "5.3.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "fresh-falafel": "^1.2.0",
-    "loader-utils": "^0.2.15",
-    "pofile": "^1.0.2"
+    "babylon": "6.8.0",
+    "fresh-falafel": "1.2.0",
+    "loader-utils": "0.2.15",
+    "pofile": "1.0.2"
   },
   "devDependencies": {
     "ut-tools": "^5.3.13"
