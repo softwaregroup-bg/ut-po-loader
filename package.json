@@ -1,0 +1,42 @@
+{
+  "name": "ut-po-loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "fresh-falafel": "^1.2.0",
+    "loader-utils": "^0.2.15",
+    "pofile": "^1.0.2"
+  },
+  "devDependencies": {
+    "ut-tools": "^5.3.13"
+  },
+  "scripts": {
+    "lint": "ut-lint .",
+    "release": "ut-release",
+    "changelog": "ut-changelog",
+    "check": "ut-check",
+    "cover": "ut-cover",
+    "lint-js": "ut-lint-js .",
+    "postpublish": "ut-postpublish",
+    "postversion": "ut-postversion",
+    "precommit": "ut-precommit",
+    "prepublish": "ut-prepublish",
+    "prepush": "ut-prepush",
+    "pretest": "ut-pretest",
+    "preversion": "ut-preversion",
+    "test": "ut-test",
+    "version": "ut-version",
+    "jenkins": "ut-jenkins",
+    "gitlab": "ut-gitlab"
+  },
+  "publishConfig": {
+    "registry": "https://nexus.softwaregroup-bg.com/repository/npm-internal"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.softwaregroup-bg.com:ut5/ut-po-loader.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
