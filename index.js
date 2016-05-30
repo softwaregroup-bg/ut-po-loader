@@ -31,18 +31,18 @@ function getPoLocation(cache, translate) {
         var poFiles = [];
         translate && translate().then(function(response) {
             var translations = response[0].reduce((languages, msg) => {
-                if (existingFile[msg.language]) return languages;
-                var languageFile = cachePath + path.sep + 'messages.' + msg.language + '.po';
+                if (existingFile[msg.iso2Code]) return languages;
+                var languageFile = cachePath + path.sep + 'messages.' + msg.iso2Code + '.po';
                 if (fs.existsSync(languageFile)) {
                     poFiles.push(languageFile);
-                    existingFile[msg.language] = true;
+                    existingFile[msg.iso2Code] = true;
                     return languages;
                 }
-                if (!languages[msg.language]) languages[msg.language] = new PO();
+                if (!languages[msg.iso2Code]) languages[msg.iso2Code] = new PO();
                 var item = new PO.Item();
-                item.msgid = msg.msgid;
-                item.msgstr = msg.msgstr;
-                languages[msg.language].items.push(item);
+                item.msgid = msg.dictionaryKey;
+                item.msgstr = msg.translatedValue;
+                languages[msg.iso2Code].items.push(item);
                 return languages;
             }, {});
             var languages = Object.keys(translations);
