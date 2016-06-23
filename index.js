@@ -17,7 +17,7 @@ function addToPo(untranslated, po, file) {
 
 function translatable(source, translations) {
     var texts = [];
-    h(source, (x) => x.type === 'JSXIdentifier' && x.name === 'Text' && x.parent.type === 'JSXOpeningElement' && !translations[x.parent.parent.children[0].value] && (texts.push({
+    h(source, (x) => x.type === 'JSXIdentifier' && x.name === 'Text' && x.parent.type === 'JSXOpeningElement' && !translations[x.parent.parent.children[0].value.toLowerCase()] && (texts.push({
         value: x.parent.parent.children[0].value,
         line: x.loc.start.line
     })));
@@ -26,36 +26,13 @@ function translatable(source, translations) {
 
 function getPoLocation(cache, translate) {
     return new Promise((resolve, reject) => {
-        var cachePath = path.dirname(cache);
-        var existingFile = {};
-        var poFiles = [];
         translate && translate().then(function(response) {
             var translations = response[0].reduce((languages, msg) => {
-                if (existingFile[msg.iso2Code]) return languages;
-                var languageFile = cachePath + path.sep + 'messages.' + msg.iso2Code + '.po';
-                if (fs.existsSync(languageFile)) {
-                    poFiles.push(languageFile);
-                    existingFile[msg.iso2Code] = true;
-                    return languages;
-                }
-                if (!languages[msg.iso2Code]) languages[msg.iso2Code] = new PO();
-                var item = new PO.Item();
-                item.msgid = msg.dictionaryKey;
-                item.msgstr = msg.translatedValue;
-                languages[msg.iso2Code].items.push(item);
+                if (!languages[msg.iso2Code]) languages[msg.iso2Code] = {};
+                languages[msg.iso2Code][msg.dictionaryKey.toLowerCase()] = true;
                 return languages;
             }, {});
-            var languages = Object.keys(translations);
-            if (!languages.length) {
-                resolve(poFiles);
-                return;
-            }
-            languages.map((language) => {
-                var languageFile = cachePath + path.sep + 'messages.' + language + '.po';
-                fs.writeFileSync(languageFile, translations[language].toString());
-                poFiles.push(languageFile);
-            });
-            resolve(poFiles);
+            resolve(translations);
         });
     });
 }
@@ -66,17 +43,17 @@ module.exports = function(source) {
     }
     var callback = this.async();
     var loaderOptions = loaderUtils.parseQuery(this.query);
-    getPoLocation(loaderOptions.path, this.options.closures.translate).then((poFiles) => {
-        poFiles.map((poFile) => {
-            var po = PO.parse(fs.readFileSync(poFile).toString());
-            var translations = po.items.reduce((objects, translation) => {
-                objects[translation.msgid] = true;
-                return objects;
-            }, {});
-            var untranslated = translatable(source, translations);
+    getPoLocation(loaderOptions.path, this.options.closures.translate).then((translations) => {
+        Object.keys(translations).map((language) => {
+            var untranslated = translatable(source, translations[language]);
             if (untranslated.length) {
+                var languageFile = path.dirname(loaderOptions.path) + path.sep + 'messages.' + language + '.po';
+                var po = new PO();
+                if (fs.existsSync(languageFile)) {
+                    po = PO.parse(fs.readFileSync(languageFile).toString());
+                }
                 po = addToPo(untranslated, po, this.resourcePath);
-                fs.writeFileSync(poFile, po.toString());
+                fs.writeFileSync(languageFile, po.toString());
             }
         });
         callback(null, source);
