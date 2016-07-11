@@ -5,19 +5,25 @@ var path = require('path');
 var loaderUtils = require('loader-utils');
 
 function addToPo(untranslated, po, file) {
+    var existing = {};
+    po.items.map((key) => {
+        existing[key.msgid] = true;
+    });
     untranslated.map((key) => {
-        var item = new PO.Item();
-        item.msgid = key.value;
-        item.msgstr = '';
-        item.references.push(file + ':' + key.line);
-        po.items.push(item);
+        if (!existing[key.value]) {
+            var item = new PO.Item();
+            item.msgid = key.value;
+            item.msgstr = '';
+            item.references.push(file + ':' + key.line);
+            po.items.push(item);
+        }
     });
     return po;
 }
 
 function translatable(source, translations) {
     var texts = [];
-    h(source, (x) => x.type === 'JSXIdentifier' && x.name === 'Text' && x.parent.type === 'JSXOpeningElement' && !translations[x.parent.parent.children[0].value.toLowerCase()] && (texts.push({
+    h(source, (x) => x.type === 'JSXIdentifier' && x.name === 'Text' && x.parent.type === 'JSXOpeningElement' && !translations[x.parent.parent.children[0].value] && (texts.push({
         value: x.parent.parent.children[0].value,
         line: x.loc.start.line
     })));
@@ -29,7 +35,7 @@ function getPoLocation(cache, translate) {
         translate && translate().then(function(response) {
             var translations = response[0].reduce((languages, msg) => {
                 if (!languages[msg.iso2Code]) languages[msg.iso2Code] = {};
-                languages[msg.iso2Code][msg.dictionaryKey.toLowerCase()] = true;
+                languages[msg.iso2Code][msg.dictionaryKey] = true;
                 return languages;
             }, {});
             resolve(translations);
