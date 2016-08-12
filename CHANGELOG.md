@@ -1,3 +1,13 @@
+<a name="5.5.1"></a>
+## [5.5.1](https://github.com/softwaregroup-bg/ut-po-loader/compare/v5.5.0...v5.5.1) (2016-08-12)
+
+
+### Bug Fixes
+
+* publish to npm ([36ff1fa](https://github.com/softwaregroup-bg/ut-po-loader/commit/36ff1fa))
+
+
+
 <a name="5.5.0"></a>
 # [5.5.0](https://git.softwaregroup-bg.com/ut5/ut-po-loader/compare/v5.3.2...v5.5.0) (2016-08-12)
 
