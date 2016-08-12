@@ -10,7 +10,7 @@
     "pofile": "1.0.2"
   },
   "devDependencies": {
-    "ut-tools": "^5.4.1"
+    "ut-tools": "^5.6.0"
   },
   "scripts": {
     "lint": "ut-lint .",
@@ -31,13 +31,10 @@
     "jenkins": "ut-jenkins",
     "gitlab": "ut-gitlab"
   },
-  "publishConfig": {
-    "registry": "https://nexus.softwaregroup-bg.com/repository/npm-internal"
-  },
   "repository": {
     "type": "git",
-    "url": "git@git.softwaregroup-bg.com:ut5/ut-po-loader.git"
+    "url": "git@github.com:softwaregroup-bg/ut-po-loader.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "Apache-2.0"
 }
