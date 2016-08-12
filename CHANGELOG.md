@@ -1,3 +1,15 @@
+<a name="5.5.0"></a>
+# [5.5.0](https://git.softwaregroup-bg.com/ut5/ut-po-loader/compare/v5.3.2...v5.5.0) (2016-08-12)
+
+
+### Features
+
+* case sensitive translations ([3bf7a45](https://git.softwaregroup-bg.com/ut5/ut-po-loader/commit/3bf7a45))
+* scan files during webpack packing and create file with missing translations for each language ([a46d63d](https://git.softwaregroup-bg.com/ut5/ut-po-loader/commit/a46d63d))
+* upgrade dependencies ([6bfb77c](https://git.softwaregroup-bg.com/ut5/ut-po-loader/commit/6bfb77c))
+
+
+
 <a name="5.3.2"></a>
 ## [5.3.2](https://git.softwaregroup-bg.com/ut5/ut-po-loader/compare/v5.3.1...v5.3.2) (2016-05-30)
 
