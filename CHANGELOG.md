@@ -1,3 +1,13 @@
+<a name="5.6.0"></a>
+# [5.6.0](https://github.com/softwaregroup-bg/ut-po-loader/compare/v5.5.3...v5.6.0) (2016-12-23)
+
+
+### Features
+
+* update dependencies ([15201b4](https://github.com/softwaregroup-bg/ut-po-loader/commit/15201b4))
+
+
+
 <a name="5.5.3"></a>
 ## [5.5.3](https://github.com/softwaregroup-bg/ut-po-loader/compare/v5.5.2...v5.5.3) (2016-11-02)
 
