@@ -1,6 +1,6 @@
 {
   "name": "ut-po-loader",
-  "version": "5.6.6",
+  "version": "5.7.0-rc-acapulco.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
